@@ -4,6 +4,7 @@ namespace TestTasks.TaskOne.SecondImplementation
 {
     internal class Program
     {
+        // Task 1.Ломай меня полностью. Второй вариант решения
         static void Main(string[] args)
         {
             try

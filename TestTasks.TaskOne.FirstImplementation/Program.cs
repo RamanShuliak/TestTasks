@@ -2,6 +2,7 @@
 {
     internal class Program
     {
+        // Task 1.Ломай меня полностью. Первый вариант решения
         static void Main(string[] args)
         {
             try

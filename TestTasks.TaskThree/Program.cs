@@ -2,6 +2,7 @@
 {
     internal class Program
     {
+        // Task 3.Мне только спросить!
         static void Main(string[] args)
         {
             int[] values = { 1, 2, 3, 4, 5, 6, 7 };

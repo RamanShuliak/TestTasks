@@ -2,11 +2,13 @@
 
 namespace TestTasks.TaskTwo
 {
-    internal class Program
+    internal partial class Program
     {
+        // Task 2.Операция «Ы».
+
         static readonly IFormatProvider _ifp = CultureInfo.InvariantCulture;
 
-        class Number
+        public class Number
         {
             readonly int _number;
 

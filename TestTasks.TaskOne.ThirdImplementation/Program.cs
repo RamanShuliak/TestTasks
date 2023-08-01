@@ -4,6 +4,7 @@ namespace TestTasks.TaskOne.ThirdImplementation
 {
     internal class Program
     {
+        // Task 1.Ломай меня полностью. Третий вариант решения
         static void Main(string[] args)
         {
             try

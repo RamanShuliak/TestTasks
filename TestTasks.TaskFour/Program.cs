@@ -4,6 +4,7 @@ namespace TestTasks.TaskFour
 {
     internal class Program
     {
+        // Task 4.Высший сорт.
         static void Main(string[] args)
         {
             var list = GenerateTestInputStream();

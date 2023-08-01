@@ -4,6 +4,7 @@ namespace TestTasks.TaskFive
 {
     internal class Program
     {
+        // Task 5.Слон из мухи.
         static void Main(string[] args)
         {
             TransformToElephant();

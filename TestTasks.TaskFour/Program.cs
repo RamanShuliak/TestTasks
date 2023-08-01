@@ -11,8 +11,14 @@ namespace TestTasks.TaskFour
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();
-            var sortStream = Sort(list, 5, 2000);
-            // ...Some realization of data from sortStream
+            var sortedStream = Sort(list, 5, 2000);
+
+            // Some test realization of data from sortedStream
+            foreach (var item in sortedStream)
+            {
+                Console.WriteLine(item);
+            }
+
             stopwatch.Stop();
             Console.WriteLine($"Sort method worked by {stopwatch.ElapsedMilliseconds} milliseconds.");
         }
@@ -32,18 +38,22 @@ namespace TestTasks.TaskFour
 
             foreach (var item in inputStream)
             {
-
-                if (item >= minValue && item < maxValue && sortedStream.Count < 1000000000)
+                if(sortedStream.Count < 1000000000)
                 {
-                    sortedStream.Add(item);
+                    if (item >= minValue && item < (maxValue + 1) )
+                    {
+                        sortedStream.Add(item);
 
-                    minValue = item - sortFactor;
+                        minValue = item - sortFactor;
+                    }
+                }
+                else
+                {
+                    break;
                 }
             }
 
             sortedStream.Sort();
-
-            //return sortedStream;
 
             foreach (var item in sortedStream)
             {

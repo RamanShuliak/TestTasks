@@ -1,0 +1,17 @@
+﻿@model CreateLinkModel
+
+@{
+    ViewData["Title"] = "CreateLink";
+}
+
+<h1>Create a new link</h1>
+
+<form asp-controller="Link" asp-action="CreateLink" method="post" enctype="multipart/form-data">
+    <div class="mb-3 col-4">
+        <label for="long-url" class="form-label">Long URL:</label>
+        <input asp-for="LongUrl" class="form-control" id="long-url" required>
+        <span asp-validation-for="LongUrl" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary">Submit</button>
+</form>

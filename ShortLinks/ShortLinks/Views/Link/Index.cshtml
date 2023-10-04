@@ -1,0 +1,31 @@
+﻿@using ShortLinks.Core;
+@model List<LinkDto>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="d-grid gap-2">
+    <a href="~/link/createLink" class="btn btn-primary" type="button">Add new link</a>
+    <div />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">LongUrl</th>
+            <th scope="col">ShortUrl</th>
+            <th scope="col">DateOfCreation</th>
+            <th scope="col">NumberOfTransitions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var link in Model)
+        {
+            <tr>
+                <th>@link.LongUrl</th>
+                <td>@link.ShortUrl</td>
+                <td>@link.DateOfCreation</td>
+                <td>@link.NumberOfTransitions</td>
+            </tr>
+        }
+    </tbody>
+</table>

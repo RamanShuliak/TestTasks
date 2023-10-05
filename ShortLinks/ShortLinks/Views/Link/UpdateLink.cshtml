@@ -1,12 +1,13 @@
-﻿@model CreateLinkModel
+﻿@using ShortLinks.Core;
+@model LinkDto
 
 @{
-    ViewData["Title"] = "CreateLink";
+    ViewData["Title"] = "UpdateLink";
 }
 
-<h1>Create a new link</h1>
+<h1>Update link</h1>
 
-<form asp-controller="Link" asp-action="CreateLink" method="post" enctype="multipart/form-data">
+<form asp-controller="Link" asp-action="UpdateLink" method="post" enctype="multipart/form-data">
     <div class="mb-3 col-4">
         <label for="long-url" class="form-label">Long URL:</label>
         <input asp-for="LongUrl" class="form-control" id="long-url" required>
@@ -32,10 +33,10 @@
 
 @section scripts {
     <script>
-        $(function() {
+        $(function () {
             $('#generate-short-url').click(function (event) {
                 event.preventDefault();
-                $.get($(this).attr('href'), function(data) {
+                $.get($(this).attr('href'), function (data) {
                     $('#short-url').val(data);
                 });
             });

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShortLinks.Core;
 using ShortLinks.Models;
 
@@ -39,6 +40,13 @@ namespace ShortLinks.Controllers
         }
 
         [HttpGet]
+        public IActionResult GenerateShortUrl()
+        {
+            var shortUrl = _linkService.GenerateShortUrl();
+            return Json(shortUrl);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> UpdateLink(Guid id)
         {
             if (id != Guid.Empty)
@@ -53,7 +61,7 @@ namespace ShortLinks.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> UpdateLink(LinkDto linkDto)
         {
             var resultOfEdition = await _linkService.UpdateLinkAsync(linkDto);
@@ -61,16 +69,33 @@ namespace ShortLinks.Controllers
             return RedirectToAction("Index", "Link");
         }
 
-        [HttpDelete]
         public async Task<IActionResult> DeleteLink(Guid id)
         {
             var result = await _linkService.DeleteLinkAsync(id);
-            if (!result)
+
+            if (result == 0)
             {
                 return NotFound();
             }
 
             return RedirectToAction("Index", "Link");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RedirectToLongUrl(string shortUrl)
+        {
+            var linkDto = await _linkService.GetLinkByShortUrlAsync(shortUrl);
+
+            if (linkDto == null)
+            {
+                return NotFound();
+            }
+
+            linkDto.NumberOfTransitions++;
+
+            var resultOfUpdate = await _linkService.UpdateNumberOfTransactionsOfLinkAsync(linkDto);
+
+            return Redirect(linkDto.LongUrl);
         }
     }
 }

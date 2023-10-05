@@ -39,6 +39,16 @@ namespace ShortLinks.Business
             return linkDto;
         }
 
+        public async Task<LinkDto>? GetLinkByShortUrlAsync(string url)
+        {
+            var link = await _context.Links
+                .FirstOrDefaultAsync(link => link.ShortUrl.Equals(url));
+
+            var linkDto = _mapper.Map<LinkDto>(link);
+
+            return linkDto;
+        }
+
         public async Task<int> CreateLinkAsync(string longUrl)
         {
             var link = new Link
@@ -49,45 +59,53 @@ namespace ShortLinks.Business
                 DateOfCreation = DateTime.Now,
                 NumberOfTransitions = 0
             };
-            await _context.Links.AddAsync(link);
-            var result = await _context.SaveChangesAsync();
+            var resultOfAdding = await _context.Links.AddAsync(link);
+            var resultOfSaving = await _context.SaveChangesAsync();
 
-            return result;
+            return resultOfSaving;
         }
 
-        public async Task<bool> UpdateLinkAsync(LinkDto linkDto)
+        public async Task<int> UpdateLinkAsync(LinkDto linkDto)
         {
             var link = await _context.Links
-                .FirstOrDefaultAsync(link => link.LongUrl.Equals(linkDto.LongUrl));
+                .FirstOrDefaultAsync(link => link.Id.Equals(linkDto.Id));
 
-            if (link == null)
-            {
-                return false;
-            }
             link.LongUrl = linkDto.LongUrl;
-            _context.Entry(link).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            link.ShortUrl = linkDto.ShortUrl;
+            var resultOfUpdate = _context.Entry(link).State = EntityState.Modified;
+            var resultOfSaving = await _context.SaveChangesAsync();
 
-            return true;
+            return resultOfSaving;
         }
 
-        public async Task<bool> DeleteLinkAsync(Guid id)
+        public async Task<int> UpdateNumberOfTransactionsOfLinkAsync(LinkDto linkDto)
+        {
+            var link = await _context.Links
+                .FirstOrDefaultAsync(link => link.Id.Equals(linkDto.Id));
+
+            link.NumberOfTransitions = linkDto.NumberOfTransitions;
+
+            var resultOfUpdate = _context.Entry(link).State = EntityState.Modified;
+            var resultOfSaving = await _context.SaveChangesAsync();
+
+            return resultOfSaving;
+        }
+
+        public async Task<int> DeleteLinkAsync(Guid id)
         {
             var link = await _context.Links.FindAsync(id);
-            if (link == null)
-            {
-                return false;
-            }
-            _context.Links.Remove(link);
-            await _context.SaveChangesAsync();
-            return true;
+
+            var resultOfDelete = _context.Links.Remove(link);
+            var resultOfSaving = await _context.SaveChangesAsync();
+
+            return resultOfSaving;
         }
 
-        private string GenerateShortUrl()
+        public string GenerateShortUrl()
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            const string CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var random = new Random();
-            var shortUrl = new string(Enumerable.Repeat(chars, 6)
+            var shortUrl = new string(Enumerable.Repeat(CHARS, 6)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
             return shortUrl;
         }

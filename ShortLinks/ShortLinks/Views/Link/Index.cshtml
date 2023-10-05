@@ -21,10 +21,19 @@
         @foreach(var link in Model)
         {
             <tr>
-                <th>@link.LongUrl</th>
-                <td>@link.ShortUrl</td>
+                <td>@link.LongUrl</td>
+                <td>
+                    <a href="@Url.Action("RedirectToLongUrl", "Link", new { shortUrl = link.ShortUrl })">@link.ShortUrl</a>
+                </td>
                 <td>@link.DateOfCreation</td>
                 <td>@link.NumberOfTransitions</td>
+                <td>
+                    <a class="btn btn-primary" href="~/link/updateLink/@link.Id">Update</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" href="~/link/deleteLink/@link.Id" 
+                    onclick="return confirm('Are you sure you want to delete this link?')">Delete</a>
+                </td>
             </tr>
         }
     </tbody>

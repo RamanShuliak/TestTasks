@@ -16,6 +16,8 @@ namespace ShortLinks.Core
         Task<int> UpdateNumberOfTransactionsOfLinkAsync(LinkDto linkDto);
         Task<int> DeleteLinkAsync(Guid id);
         public string GenerateShortUrl();
+        Task<bool> IsLinkAlreadyExistByLongUrlAsync(string longUrl);
+        Task<bool> IsLinkAlreadyExistByShortUrlAsync(string shortUrl);
 
     }
 }

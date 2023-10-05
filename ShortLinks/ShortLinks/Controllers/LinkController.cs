@@ -97,5 +97,35 @@ namespace ShortLinks.Controllers
 
             return Redirect(linkDto.LongUrl);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CheckLongUrl(CreateLinkModel linkModel)
+        {
+            var islinkExist = await _linkService.IsLinkAlreadyExistByLongUrlAsync(linkModel.LongUrl);
+
+            if (islinkExist == true)
+            {
+                return Ok(false);
+            }
+            else
+            {
+                return Ok(true);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CheckShortUrl(CreateLinkModel linkModel)
+        {
+            var islinkExist = await _linkService.IsLinkAlreadyExistByShortUrlAsync(linkModel.ShortUrl);
+
+            if (islinkExist == true)
+            {
+                return Ok(false);
+            }
+            else
+            {
+                return Ok(true);
+            }
+        }
     }
 }

@@ -109,5 +109,35 @@ namespace ShortLinks.Business
                 .Select(s => s[random.Next(s.Length)]).ToArray());
             return shortUrl;
         }
+
+        public async Task<bool> IsLinkAlreadyExistByLongUrlAsync(string longUrl)
+        {
+            var result = await _context.Links
+                .FirstOrDefaultAsync(link => link.LongUrl.Equals(longUrl));
+
+            if (result == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public async Task<bool> IsLinkAlreadyExistByShortUrlAsync(string shortUrl)
+        {
+            var result = await _context.Links
+                .FirstOrDefaultAsync(link => link.ShortUrl.Equals(shortUrl));
+
+            if (result == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

@@ -14,22 +14,12 @@ namespace ShortLinks.DataBase
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            //Database.EnsureDeleted();
-            //Database.EnsureCreated();
+
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public ApplicationDbContext()
         {
-            base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Link>(entity =>
-            {
-                entity.HasKey(e => e.Id);
-                entity.Property(e => e.LongUrl).IsRequired();
-                entity.Property(e => e.ShortUrl).IsRequired();
-                entity.Property(e => e.DateOfCreation).IsRequired();
-                entity.Property(e => e.NumberOfTransitions).IsRequired();
-            });
         }
     }
 }

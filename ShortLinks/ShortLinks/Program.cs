@@ -1,7 +1,17 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using ShortLinks.Business;
 using ShortLinks.Core;
 using ShortLinks.DataBase;
+
+// В процессе написания приложения я не смог реализовать создание миграций в автоматическом режиме.
+// Изучение официальной документации от Microsoft и на сайте самого EF Core не дало результата,
+// как и поиск ответов у других пользователей.
+// Тема крайне непопулярная, материала очень мало (в основном устаревшего).
+// Способ реализации через метод DbContext.Database.Migrate() (он же самый актуальный по документации) результата не дал.
+// Если вы располагаете полноценными и современными туториалами по данной теме, буду благодарен, если поделитесь.
 
 namespace ShortLinks
 {
@@ -42,9 +52,10 @@ namespace ShortLinks
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Link}/{action=Index}/{id?}");
 
             app.Run();
         }
     }
 }
+

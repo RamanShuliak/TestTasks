@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SignalRChat.Data.Abstractions\SignalRChat.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\SignalRChat.DataBase\SignalRChat.DataBase.csproj" />
+  </ItemGroup>
+
+</Project>

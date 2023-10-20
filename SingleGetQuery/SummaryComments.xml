@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SingleGetQuery</name>
+    </assembly>
+    <members>
+        <member name="M:SingleGetQuery.Controllers.ProductController.GetAllProductsByCategoryName(System.String)">
+            <summary>
+            Получить все товары определённой категории
+            </summary>
+            <param name="categoryName">Название категории</param>
+            <returns>Список товаров с ценами и названием категории</returns>
+        </member>
+    </members>
+</doc>
